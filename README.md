@@ -27,7 +27,7 @@ Analisar a relação entre as variações da taxa Selic e as taxas de juros de q
 
 ## Como executar o projeto
 
-É necessário ter o Python e o Git instalados no computador.
+É necessário ter Python e Git instalados no computador.
 
 ### 1. Clonar o repositório
 
