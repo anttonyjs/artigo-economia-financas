@@ -1,0 +1,13 @@
+Tema: Do Copom ao seu empréstimo: repasse da Selic ao crédito
+Fonte: Banco Central do Brasil — SGS
+Site: https://www3.bcb.gov.br/sgspub/
+
+Séries históricas:
+432 - Meta Selic definida pelo Copom
+20742 - Crédito pessoal não consignado
+20747 - Crédito pessoal consignado total
+22022 - Cartão de crédito rotativo
+20725 - Capital de giro total
+
+Período proposto: janeiro/2015 a dezembro/2025
+Observação: conferir a disponibilidade das séries e registrar a data de acesso na coleta.

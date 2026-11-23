@@ -1,0 +1,21 @@
+# Ambiente virtual
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Configuracoes locais
+.env
+.vscode/
+.pytest_cache/
+
+# Pastas de imagens e graficos
+artigo/
+graficos/
+
+# Relatorios auxiliares
+dados/*.txt
+
+# Arquivos temporarios
+.DS_Store
+Thumbs.db
