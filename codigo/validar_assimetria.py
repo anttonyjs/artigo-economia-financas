@@ -6,13 +6,13 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import statsmodels.api as sm
 
-# Pastas do projeto
+
 PROJETO = Path(__file__).resolve().parent.parent
 DADOS = PROJETO / "dados"
 GRAFICOS = PROJETO / "graficos"
 GRAFICOS.mkdir(exist_ok=True)
 
-# Ler a base de dados
+
 df = pd.read_csv(
     DADOS / "dados_selic_credito.csv",
     sep=";",
@@ -31,27 +31,27 @@ modalidades = {
     "capital_giro": "Capital de giro",
 }
 
-# Separar movimentos da Selic
+
 delta_selic = df["selic"].diff()
 
 df["alta"] = delta_selic.clip(lower=0)
 df["queda"] = delta_selic.clip(upper=0)
 
-# Gerar ate 12 defasagens
+
 for i in range(13):
     df[f"alta_{i}"] = df["alta"].shift(i)
     df[f"queda_{i}"] = df["queda"].shift(i)
 
-# Variacoes das taxas de credito
+
 for coluna in modalidades:
     df[f"delta_{coluna}"] = df[coluna].diff()
 
-    # Variacao do mes anterior
+    
     df[f"anterior_{coluna}"] = (
         df[f"delta_{coluna}"].shift(1)
     )
 
-# Comparar modelos na mesma amostra
+
 todas_variaveis = (
     [f"alta_{i}" for i in range(13)]
     + [f"queda_{i}" for i in range(13)]
@@ -121,7 +121,7 @@ for coluna, nome in modalidades.items():
         teste_alta = modelo.t_test(vetor_alta)
         teste_queda = modelo.t_test(vetor_queda)
 
-        # Hipotese: repasse de alta = repasse de queda
+        
         teste_diferenca = modelo.t_test(
             vetor_alta - vetor_queda
         )
@@ -152,7 +152,7 @@ for coluna, nome in modalidades.items():
             "observacoes": int(modelo.nobs)
         })
 
-# Consolidar resultados
+
 tabela = pd.DataFrame(resultados)
 
 tabela["significativo_5pct"] = (
@@ -172,7 +172,7 @@ print(
     tabela.round(4).to_string(index=False)
 )
 
-# Grafico da diferenca entre repasses
+
 fig, eixos = plt.subplots(
     2, 2, figsize=(12, 8)
 )

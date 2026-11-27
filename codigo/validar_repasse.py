@@ -124,7 +124,7 @@ print("\nVALIDACAO DOS RESULTADOS")
 print(tabela.round(4).to_string(index=False))
 
 
-# Grafico com intervalos de confianca de 95%
+
 grafico = tabela[
     tabela["defasagens"] == 3
 ].copy()
@@ -138,7 +138,7 @@ erros = np.array([
 
 fig, ax = plt.subplots(figsize=(12, 7))
 
-# Barras das estimativas
+
 barras = ax.bar(
     grafico["modalidade"],
     valores,
@@ -147,7 +147,7 @@ barras = ax.bar(
     label="Repasse estimado"
 )
 
-# Intervalos de confianca
+
 ax.errorbar(
     range(len(valores)),
     valores,
@@ -160,7 +160,6 @@ ax.errorbar(
     label="Intervalo de confianca de 95%"
 )
 
-# Numeros acima dos intervalos
 for i, barra in enumerate(barras):
     limite = grafico.iloc[i]["ic_superior"]
 
@@ -178,7 +177,7 @@ for i, barra in enumerate(barras):
         fontweight="bold"
     )
 
-# Titulos e identificacoes
+
 ax.set_title(
     "Repasse estimado da Selic as taxas de credito\n"
     "Brasil - 2015 a 2025",
@@ -218,7 +217,7 @@ ax.legend(
     frameon=True
 )
 
-# Espaco acima dos intervalos
+
 maior_limite = grafico["ic_superior"].max()
 ax.set_ylim(
     min(0, grafico["ic_inferior"].min() * 1.1),
@@ -231,7 +230,7 @@ ax.tick_params(
     labelsize=10
 )
 
-# Reservar espaco para as notas
+
 fig.subplots_adjust(
     bottom=0.27,
     top=0.88,
@@ -239,7 +238,7 @@ fig.subplots_adjust(
     right=0.97
 )
 
-# Informacoes metodologicas
+
 fig.text(
     0.10,
     0.13,

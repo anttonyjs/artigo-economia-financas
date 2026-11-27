@@ -9,11 +9,11 @@ from statsmodels.stats.diagnostic import (
     het_breuschpagan
 )
 
-# Pastas
+
 PROJETO = Path(__file__).resolve().parent.parent
 DADOS = PROJETO / "dados"
 
-# Carregar os dados
+
 df = pd.read_csv(
     DADOS / "dados_selic_credito.csv",
     sep=";",
@@ -34,10 +34,10 @@ modalidades = {
     "capital_giro": "Capital de giro",
 }
 
-# Variacao mensal da Selic
+
 df["delta_selic"] = df["selic"].diff()
 
-# Criar as mesmas defasagens do modelo inicial
+
 for i in range(4):
     df[f"lag_{i}"] = (
         df["delta_selic"].shift(i)
@@ -49,7 +49,7 @@ resultados = []
 
 for coluna, nome in modalidades.items():
 
-    # Variacao mensal do credito
+    
     df["delta_credito"] = df[coluna].diff()
 
     base = df[
@@ -62,17 +62,17 @@ for coluna, nome in modalidades.items():
 
     y = base["delta_credito"]
 
-    # Modelo original de 3 defasagens
+   
     modelo = sm.OLS(y, X).fit()
 
-    # Teste Breusch-Godfrey
+    
     bg = acorr_breusch_godfrey(
     modelo,
     nlags=4,
     result_object=False
 )
 
-    # Teste Breusch-Pagan
+   
     bp = het_breuschpagan(
         modelo.resid,
         modelo.model.exog

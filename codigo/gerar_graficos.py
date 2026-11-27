@@ -3,24 +3,21 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 
-# Pastas do projeto
+
 projeto = Path(__file__).resolve().parent.parent
 arquivo = projeto / "dados" / "dados_selic_credito.csv"
 pasta_graficos = projeto / "graficos"
 pasta_graficos.mkdir(exist_ok=True)
 
-# Ler os dados
 df = pd.read_csv(arquivo, sep=";", decimal=",")
 df["mes"] = pd.to_datetime(df["mes"], format="%Y-%m")
 
-# Lista fixa de anos para mostrar no eixo X
 anos = pd.date_range(
     start="2015-01-01",
     end="2025-01-01",
     freq="YS"
 )
 
-# Grafico 1: Evolucao da Selic
 plt.figure(figsize=(11, 5))
 plt.plot(df["mes"], df["selic"], label="Selic")
 plt.title("Evolucao da Taxa Selic - 2015 a 2025")
@@ -39,7 +36,7 @@ plt.tight_layout()
 plt.savefig(pasta_graficos / "evolucao_selic.png", dpi=300)
 plt.close()
 
-# Grafico 2: Modalidades de credito
+
 modalidades = {
     "credito_pessoal": "Credito pessoal",
     "consignado": "Consignado",

@@ -87,7 +87,7 @@ for coluna, nome in modalidades.items():
         "p_breusch_pagan": bp[1],
     })
 
-    # Salvar relatorio individual
+    
     with open(
         DADOS / f"modelo_revisado_{coluna}.txt",
         "w",

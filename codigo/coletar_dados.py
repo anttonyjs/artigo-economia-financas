@@ -4,7 +4,7 @@ from datetime import date, datetime
 import pandas as pd
 import requests
 
-# Localizacao das pastas do projeto
+
 PASTA_PROJETO = Path(__file__).resolve().parent.parent
 PASTA_DADOS = PASTA_PROJETO / "dados"
 PASTA_DADOS.mkdir(exist_ok=True)
@@ -23,7 +23,7 @@ SERIES = {
 def buscar_serie(codigo):
     registros = []
 
-    # Consultas por ano evitam requisicoes muito longas
+  
     for ano in range(2015, 2026):
         inicio = f"01/01/{ano}"
         fim = f"31/12/{ano}"
@@ -76,7 +76,7 @@ for nome, codigo in SERIES.items():
         encoding="utf-8-sig",
     )
 
-# Selic: utilizar a meta vigente em cada dia
+
 indice_diario = pd.date_range(INICIO, FIM, freq="D")
 selic_diaria = (
     dados["selic"]["valor"]
@@ -87,7 +87,7 @@ selic_diaria = (
 if selic_diaria.isna().any():
     raise ValueError("Faltam valores diarios da Selic.")
 
-# Media mensal da meta Selic
+
 selic_mensal = selic_diaria.groupby(
     selic_diaria.index.to_period("M")
 ).mean()
@@ -95,7 +95,7 @@ selic_mensal.name = "selic"
 
 tabela = selic_mensal.to_frame()
 
-# As demais series ja sao mensais
+
 for nome in SERIES:
     if nome == "selic":
         continue
@@ -105,11 +105,10 @@ for nome in SERIES:
     serie = serie.groupby(level=0).mean()
     tabela[nome] = serie
 
-# Conferir os meses ausentes
+
 print("\nQuantidade de meses sem dados:")
 print(tabela.isna().sum())
 
-# Salvar tabela consolidada
 tabela.index = tabela.index.astype(str)
 tabela.index.name = "mes"
 

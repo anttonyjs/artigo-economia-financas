@@ -5,9 +5,7 @@ import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
 
-# -----------------------------------------
-# CONFIGURACAO
-# -----------------------------------------
+
 
 st.set_page_config(
     page_title="Do Copom ao seu Emprestimo",
@@ -44,9 +42,6 @@ def carregar_csv(nome):
 def numero(valor):
     return f"{valor:.2f}".replace(".", ",")
 
-# -----------------------------------------
-# DADOS PRINCIPAIS
-# -----------------------------------------
 
 try:
     df = carregar_csv(
@@ -61,9 +56,6 @@ df["mes"] = pd.to_datetime(
 )
 df = df.sort_values("mes").set_index("mes")
 
-# -----------------------------------------
-# CABECALHO
-# -----------------------------------------
 
 st.title("Do Copom ao seu empréstimo")
 st.subheader("Repasse da Selic às taxas de crédito")
@@ -82,9 +74,6 @@ col3.metric("Modalidades de crédito", 4)
 
 st.divider()
 
-# -----------------------------------------
-# FILTROS
-# -----------------------------------------
 
 st.sidebar.header("Filtros")
 
@@ -106,10 +95,6 @@ filtrado = df[
     (df.index.year >= ano_inicial)
     & (df.index.year <= ano_final)
 ]
-
-# -----------------------------------------
-# EVOLUCAO DAS TAXAS
-# -----------------------------------------
 
 st.header("1. Evolução das taxas de juros")
 
@@ -171,10 +156,6 @@ st.caption(
 )
 
 st.divider()
-
-# -----------------------------------------
-# ESTIMATIVAS DO REPASSE
-# -----------------------------------------
 
 st.header("2. Repasse estimado da Selic")
 
@@ -263,10 +244,6 @@ else:
 
 st.divider()
 
-# -----------------------------------------
-# ASSIMETRIA
-# -----------------------------------------
-
 st.header("3. Análise de assimetria")
 
 st.write(
@@ -313,10 +290,6 @@ else:
 
 st.divider()
 
-# -----------------------------------------
-# DADOS E METODOLOGIA
-# -----------------------------------------
-
 st.header("4. Dados e metodologia")
 
 st.write(
@@ -355,10 +328,6 @@ with st.expander("Limitações da pesquisa"):
         "apresentaram maior incerteza e problemas "
         "nos diagnósticos de alguns modelos."
     )
-
-# -----------------------------------------
-# DOWNLOAD
-# -----------------------------------------
 
 st.subheader("Baixar dados")
 

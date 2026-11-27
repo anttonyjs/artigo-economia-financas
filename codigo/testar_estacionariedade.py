@@ -65,24 +65,23 @@ def executar_adf(dados, nome, transformacao, tendencia):
     })
 
 
-# Executar os testes
 for coluna, nome in series.items():
 
     print(f"Analisando {nome}...")
 
     serie = df[coluna]
 
-    # Serie original em nivel
+    
     executar_adf(
         serie, nome, "Nivel", "c"
     )
 
-    # Nivel com tendencia deterministica
+    
     executar_adf(
         serie, nome, "Nivel", "ct"
     )
 
-    # Primeira diferenca mensal
+    
     primeira_diferenca = serie.diff()
 
     executar_adf(
@@ -93,10 +92,10 @@ for coluna, nome in series.items():
     )
 
 
-# Organizar resultados
+
 tabela = pd.DataFrame(resultados)
 
-# Salvar resultados completos
+
 arquivo = DADOS / "resultados_adf.csv"
 
 tabela.to_csv(
@@ -107,7 +106,7 @@ tabela.to_csv(
     encoding="utf-8-sig"
 )
 
-# Exibir resumo no terminal
+
 print("\nRESULTADOS DO TESTE ADF")
 print(
     tabela.round(5).to_string(index=False)
